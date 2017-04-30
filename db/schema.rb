@@ -1,101 +1,24 @@
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
 
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
+ActiveRecord::Schema.define(version: 20170430222752) do
 
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
+  create_table "users", id: :string, force: :cascade do |t|
+    t.string "email", null: false
+    t.datetime "created_at", default: -> { "now()" }
+    t.index ["email"], name: "index_users_on_email"
+  end
 
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
-SET search_path = public, pg_catalog;
-
-SET default_tablespace = '';
-
-SET default_with_oids = false;
-
---
--- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE ar_internal_metadata (
-    key character varying NOT NULL,
-    value character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE schema_migrations (
-    version character varying NOT NULL
-);
-
-
---
--- Name: users; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE users (
-    id character varying NOT NULL,
-    email character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY ar_internal_metadata
-    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
-
-
---
--- Name: schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY schema_migrations
-    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
-
-
---
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_email ON users USING btree (email);
-
-
---
--- Name: index_users_on_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_id ON users USING btree (id);
-
-
---
--- PostgreSQL database dump complete
---
-
-SET search_path TO "$user", public;
-
-INSERT INTO "schema_migrations" (version) VALUES
-('20170429221557');
-
-
+end
